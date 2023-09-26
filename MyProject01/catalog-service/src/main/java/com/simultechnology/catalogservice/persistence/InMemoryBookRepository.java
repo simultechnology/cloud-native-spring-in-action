@@ -2,13 +2,18 @@ package com.simultechnology.catalogservice.persistence;
 
 import com.simultechnology.catalogservice.domain.Book;
 import com.simultechnology.catalogservice.domain.BookRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
 public class InMemoryBookRepository implements BookRepository {
+    private static final Map<String, Book> books = new ConcurrentHashMap<>();
     @Override
     public Iterable<Book> findAll() {
-        return null;
+        return books.values();
     }
 
     @Override
@@ -18,16 +23,17 @@ public class InMemoryBookRepository implements BookRepository {
 
     @Override
     public boolean existsByIsbn(String isbn) {
-        return false;
+        return books.get(isbn) != null;
     }
 
     @Override
     public Book save(Book book) {
-        return null;
+        books.put(book.isbn(), book);
+        return book;
     }
 
     @Override
     public void deleteByIsbn(String isbn) {
-
+        books.remove(isbn);
     }
 }
