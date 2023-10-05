@@ -16,10 +16,10 @@ public class InMemoryBookRepository implements BookRepository {
         return books.values();
     }
 
-    @Override
-    public Optional<Book> findByIsbn(String isbn) {
-        return Optional.empty();
-    }
+	@Override
+	public Optional<Book> findByIsbn(String isbn) {
+		return existsByIsbn(isbn) ? Optional.of(books.get(isbn)) : Optional.empty();
+	}
 
     @Override
     public boolean existsByIsbn(String isbn) {

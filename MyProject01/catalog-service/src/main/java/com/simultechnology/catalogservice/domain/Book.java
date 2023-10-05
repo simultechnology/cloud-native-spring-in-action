@@ -1,6 +1,7 @@
 package com.simultechnology.catalogservice.domain;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
@@ -19,7 +20,7 @@ public record Book(
         @NotBlank(message = "Author is mandatory")
         String author,
 
-        @NotBlank(message = "Price is mandatory")
+        @NotNull(message = "Price is mandatory")
         @Positive(message = "Price must be positive")
         Double price,
 
